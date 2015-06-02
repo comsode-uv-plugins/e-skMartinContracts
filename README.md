@@ -27,7 +27,7 @@
 
 |Name         |Type           |DataUnit     |Description             |
 |-------------|---------------|-------------|------------------------|
-|output    |o              |FilesDataUnit  |One CSV containing details for each contract. |
+|output    |o              |WritableRDFDataUnit  |RDF data containing details for each contract. |
 
 ***
 
