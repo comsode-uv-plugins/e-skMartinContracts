@@ -59,13 +59,6 @@ public class SkMartinContracts extends AbstractDpu<SkMartinContractsConfig_V1> {
 
     private Map<String, Integer> keys = new HashMap<String, Integer>();
 
-//    private static final String OUTPUT_FILE_NAME = "contracts.csv";
-//
-//    private static final String CSV_HEADER = "\"ZmluvnÈ strany - adresy\";\"Centr·lne ËÌslo zmluvy\";\"D·tum zverej. 2. zm. stranou\";\"Rok\";\"N·zov\";\"Typ\";\"Druh\";\"ZmluvnÈ strany\";\"Predmet\";\"Cena celkom\";\"Mena\";\"D·tum podpisu\";\"D·tum zverejnenia\";\"Dokumenty\";\"D·tum ukonËenia\";\"⁄Ëinnosù od\";\"D·tum povolenia katastra\";\"⁄Ëinnosù do\";\"D·tum ˙Ëinnosti zmluvy po zverejnenÌ\";\"D·tum vypovedania\";\"Miesto podpisu\";\"PoËet rokov gen. predp.\";\"RoËn˝ predpis\";\"Hlavn· / dodatok\";\"Platca\";\"Zhotoviteæ zmluvy\";\"Majiteæ zmluvy\";\"»Ìslo zmluvy\";\"Pozn·mky k zverejneniu\";\"Centr·lny rok zmluvy\"";
-
-//    @DataUnit.AsOutput(name = "filesOutput")
-//    public WritableFilesDataUnit filesOutput;
-
     @DataUnit.AsOutput(name = "rdfOutput")
     public WritableRDFDataUnit rdfOutput;
 
@@ -102,19 +95,8 @@ public class SkMartinContracts extends AbstractDpu<SkMartinContractsConfig_V1> {
     @Override
     protected void innerExecute() throws DPUException {
         initializeKeysMap();
-//        File outputFile = null;
-//        try {
-//            outputFile = File.createTempFile("____", ".csv", new File(URI.create(filesOutput.getBaseFileURIString())));
-//        } catch (IOException | DataUnitException ex) {
-//            throw ContextUtils.dpuException(ctx, ex, "SkMartinContracts.execute.exception");
-//        }
-//        CharsetEncoder encoder = Charset.forName("UTF-8").newEncoder();
-//        encoder.onMalformedInput(CodingErrorAction.REPORT);
-//        encoder.onUnmappableCharacter(CodingErrorAction.REPORT);
-//        try (PrintWriter outputWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile, false), encoder))); CloseableHttpClient httpclient = HttpClients.createDefault()) {
         RepositoryConnection connection = null;
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-//            outputWriter.println(CSV_HEADER);
             org.openrdf.model.URI graph = rdfOutput.addNewDataGraph("skWhoisRdfData");
             connection = rdfOutput.getConnection();
             ValueFactory vf = ValueFactoryImpl.getInstance();
@@ -191,7 +173,6 @@ public class SkMartinContracts extends AbstractDpu<SkMartinContractsConfig_V1> {
                     EntityBuilder eb = new EntityBuilder(uri, vf);
                     eb.property(RDF.TYPE, vf.createURI(PURL_URI));
 
-//                    outputWriter.println(getDetails(detailTable));
                     eb = getDetails(detailTable, eb, vf);
                     connection.add(eb.asStatements(), graph);
                     counter++;
@@ -204,8 +185,6 @@ public class SkMartinContracts extends AbstractDpu<SkMartinContractsConfig_V1> {
                 if (activePage == maxPage) {
                     break;
                 }
-//                response = getDetailInfo(httpclient, sessionId, closeDetailPostParamsMap());
-//                prsdrsp = parseDetailListResponse(response);
                 Map<String, String> nextPagePostParamsMap = new HashMap<String, String>();
                 nextPagePostParamsMap.put("ScriptManager1", nextPageSM1 + "|" + nextPageSM2);
                 nextPagePostParamsMap.put("NavigationHistoryState", nhs);
@@ -220,12 +199,6 @@ public class SkMartinContracts extends AbstractDpu<SkMartinContractsConfig_V1> {
                 response = getDetailInfo(httpclient, sessionId, nextPagePostParamsMap);
                 prsdrsp = parseDetailListResponse(response);
             } while (true);
-//            Resource resource = ResourceHelpers.getResource(filesOutput, OUTPUT_FILE_NAME);
-//            resource.setLast_modified(new Date());
-//            resource.setMimetype("text/csv");
-//            resource.setSize(outputFile.length());
-//            ResourceHelpers.setResource(filesOutput, OUTPUT_FILE_NAME, resource);
-//            filesOutput.addExistingFile(OUTPUT_FILE_NAME, outputFile.toURI().toASCIIString());
         } catch (Exception ex) {
             throw ContextUtils.dpuException(ctx, ex, "SkMartinContracts.execute.exception");
         }
@@ -446,24 +419,6 @@ public class SkMartinContracts extends AbstractDpu<SkMartinContractsConfig_V1> {
     private String slugify(String input) {
         String result = StringUtils.stripAccents(input);
         result = StringUtils.lowerCase(result).trim();
-//        result = result.replaceAll("\\.", "");
-//        result = result.replaceAll(",", "");
-//        result = result.replaceAll("/", "");
-//        result = result.replaceAll("\\(", "");
-//        result = result.replaceAll("\\)", "");
-//        result = result.replaceAll("\\[", "");
-//        result = result.replaceAll("\\]", "");
-//        result = result.replaceAll("\\{", "");
-//        result = result.replaceAll("\\}", "");
-//        result = result.replaceAll("\\*", "");
-//        result = result.replaceAll("&", "");
-//        result = result.replaceAll("%", "");
-//        result = result.replaceAll("$", "");
-//        result = result.replaceAll("#", "");
-//        result = result.replaceAll("@", "");
-//        result = result.replaceAll("!", "");
-//        result = result.replaceAll("|", "");
-//        result = result.replaceAll("-", "");
         result = result.replaceAll("[^a-zA-Z0-9\\s]", "");
         result = result.replaceAll("\\b\\s+", "-");
         return result;
