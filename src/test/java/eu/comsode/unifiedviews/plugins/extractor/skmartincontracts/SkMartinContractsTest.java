@@ -20,7 +20,7 @@ import eu.unifiedviews.helpers.dpu.test.config.ConfigurationBuilder;
 
 public class SkMartinContractsTest {
     @Test
-    public void testSmallFile() throws Exception {
+    public void test() throws Exception {
         SkMartinContractsConfig_V1 config = new SkMartinContractsConfig_V1();
 
         // Prepare DPU.
