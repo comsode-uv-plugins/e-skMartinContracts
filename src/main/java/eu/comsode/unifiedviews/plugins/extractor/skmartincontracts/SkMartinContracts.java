@@ -97,7 +97,7 @@ public class SkMartinContracts extends AbstractDpu<SkMartinContractsConfig_V1> {
         initializeKeysMap();
         RepositoryConnection connection = null;
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            org.openrdf.model.URI graph = rdfOutput.addNewDataGraph("skWhoisRdfData");
+            org.openrdf.model.URI graph = rdfOutput.addNewDataGraph("skMartinContractsRdfData");
             connection = rdfOutput.getConnection();
             ValueFactory vf = ValueFactoryImpl.getInstance();
 
