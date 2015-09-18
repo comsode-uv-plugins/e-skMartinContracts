@@ -171,7 +171,7 @@ public class SkMartinContracts extends AbstractDpu<SkMartinContractsConfig_V1> {
                     UUID uuid = UUID.randomUUID();
                     org.openrdf.model.URI uri = vf.createURI(BASE_URI + uuid.toString());
                     EntityBuilder eb = new EntityBuilder(uri, vf);
-                    eb.property(RDF.TYPE, vf.createURI(PURL_URI));
+                    eb.property(RDF.TYPE, vf.createURI(PURL_URI + "Contract"));
 
                     eb = getDetails(detailTable, eb, vf);
                     connection.add(eb.asStatements(), graph);
