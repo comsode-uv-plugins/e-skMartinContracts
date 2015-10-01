@@ -11,7 +11,7 @@
 
 	<groupId>eu.comsode.plugins</groupId>
 	<artifactId>uv-e-skMartinContracts</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>bundle</packaging>
 	<name>E-SkMartinContracts</name>
 	<description>Extracts http://egov.martin.sk/Default.aspx?NavigationState=778:0:</description>
